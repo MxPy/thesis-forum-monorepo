@@ -1,25 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateForumPostDto } from './dto/create-forum-post.dto';
 import { UpdateForumPostDto } from './dto/update-forum-post.dto';
-import { ProducerService } from "src/queues/producer.file";
+import { Nullogger } from "src/nullogger/producer.file";
 
 @Injectable()
 export class ForumPostsService {
   constructor(
-    private producerService: ProducerService,
-  ) {}
+    private producerService: Nullogger,
+  ) {
+  }
+  @Nullogger.notifyAdmin()
   async create(createForumPostDto: CreateForumPostDto) {
-    await this.producerService.addToEmailQueue("test")
-    return 'This action adds a new forumPost';
-  }
-
-  async findAll() {
-    await this.producerService.addToEmailQueue("test")
-    return `This action returns all forumPosts`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} forumPost`;
+    return `This action adds a new forumPost ${createForumPostDto.userId}`;
   }
 
   update(id: number, updateForumPostDto: UpdateForumPostDto) {
