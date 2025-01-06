@@ -14,11 +14,17 @@ export class ForumPostsService {
     return {'detail': `This action adds a new forumPost ${createForumPostDto.userId}`};
   }
 
-  update(id: number, updateForumPostDto: UpdateForumPostDto) {
+  async ban(id: number) {
+    return `This action ban a #${id} forumPost`;
+  }
+
+  async update(id: number, updateForumPostDto: UpdateForumPostDto) {
     return `This action updates a #${id} forumPost`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     return `This action removes a #${id} forumPost`;
   }
+
+  
 }

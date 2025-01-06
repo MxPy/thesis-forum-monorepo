@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ForumPostsService } from './forum-posts.service';
 import { CreateForumPostDto } from './dto/create-forum-post.dto';
 import { UpdateForumPostDto } from './dto/update-forum-post.dto';
@@ -12,13 +12,18 @@ export class ForumPostsController {
     return await this.forumPostsService.create(createForumPostDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateForumPostDto: UpdateForumPostDto) {
-    return this.forumPostsService.update(+id, updateForumPostDto);
+  @Delete('/ban:postId')
+  async ban(@Query('postId') id: number) {
+    return await this.forumPostsService.ban(+id);
+  }
+
+  @Patch(':postId')
+  async update(@Query('postId') id: number, @Body() updateForumPostDto: UpdateForumPostDto) {
+    return await this.forumPostsService.update(+id, updateForumPostDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.forumPostsService.remove(+id);
+  async remove(@Query('postId') id: number) {
+    return await this.forumPostsService.remove(+id);
   }
 }
