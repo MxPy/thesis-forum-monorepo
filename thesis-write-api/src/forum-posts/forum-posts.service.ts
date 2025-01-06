@@ -11,7 +11,7 @@ export class ForumPostsService {
   }
   @Nullogger.notifyAdmin()
   async create(createForumPostDto: CreateForumPostDto) {
-    return `This action adds a new forumPost ${createForumPostDto.userId}`;
+    return {'detail': `This action adds a new forumPost ${createForumPostDto.userId}`};
   }
 
   update(id: number, updateForumPostDto: UpdateForumPostDto) {

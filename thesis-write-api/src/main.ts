@@ -7,7 +7,6 @@ declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix("forum-write")
-  await app.listen(process.env.PORT ?? 3000);
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -15,8 +14,9 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  
 
+
+  await app.listen(process.env.PORT ?? 3000);
   if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => app.close());
